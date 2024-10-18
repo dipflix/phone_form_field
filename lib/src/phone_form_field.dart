@@ -9,6 +9,7 @@ import 'package:phone_form_field/src/validation/allowed_characters.dart';
 import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 
 part 'phone_controller.dart';
+
 part 'phone_form_field_state.dart';
 
 /// Phone input extending form field.
@@ -92,6 +93,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
   final EdgeInsets scrollPadding;
   final bool enableInteractiveSelection;
   final TextSelectionControls? selectionControls;
+
   bool get selectionEnabled => enableInteractiveSelection;
   final MouseCursor? mouseCursor;
   final ScrollPhysics? scrollPhysics;
@@ -115,16 +117,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
     this.defaultCountry = IsoCode.US,
     this.isCountrySelectionEnabled = true,
     bool? isCountryButtonPersistent,
-    @Deprecated('Use [isCountryButtonPersistent]')
-    bool? isCountryChipPersistent,
-    @Deprecated('Use [CountryButtonStyle] instead') bool? showFlagInInput,
-    @Deprecated('Use [CountryButtonStyle] instead') bool? showDialCode,
-    @Deprecated('Use [CountryButtonStyle] instead') bool? showIsoCodeInInput,
-    @Deprecated('Use [CountryButtonStyle] instead')
-    EdgeInsets? countryButtonPadding,
-    @Deprecated('Use [CountryButtonStyle] instead') double? flagSize,
-    @Deprecated('Use [CountryButtonStyle] instead') TextStyle? countryCodeStyle,
-    CountryButtonStyle countryButtonStyle = const CountryButtonStyle(),
+    this.countryButtonStyle = const CountryButtonStyle(),
     // form field inputs
     super.validator,
     PhoneNumber? initialValue,
@@ -174,16 +167,7 @@ class PhoneFormField extends FormField<PhoneNumber> {
           initialValue == null || controller == null,
           'One of initialValue or controller can be specified at a time',
         ),
-        isCountryButtonPersistent =
-            isCountryButtonPersistent ?? isCountryChipPersistent ?? true,
-        countryButtonStyle = countryButtonStyle.copyWith(
-          showFlag: showFlagInInput,
-          showDialCode: showDialCode,
-          showIsoCode: showIsoCodeInInput,
-          padding: countryButtonPadding,
-          flagSize: flagSize,
-          textStyle: countryCodeStyle,
-        ),
+        isCountryButtonPersistent = isCountryButtonPersistent ?? true,
         super(
           builder: (state) => (state as PhoneFormFieldState).builder(),
           initialValue: controller?.value ?? initialValue,

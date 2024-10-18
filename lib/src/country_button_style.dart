@@ -25,6 +25,12 @@ class CountryButtonStyle {
   /// Wether to show the dropdown icon in the country button
   final bool showDropdownIcon;
 
+  final double flagSpace;
+
+  final double isoCodeSpace;
+
+  final Widget? dropDownIcon;
+
   const CountryButtonStyle({
     this.textStyle,
     this.padding,
@@ -33,6 +39,9 @@ class CountryButtonStyle {
     this.showDialCode = true,
     this.showIsoCode = false,
     this.showDropdownIcon = true,
+    this.flagSpace = 8,
+    this.isoCodeSpace = 8,
+    this.dropDownIcon,
   });
 
   CountryButtonStyle copyWith({
@@ -43,6 +52,9 @@ class CountryButtonStyle {
     bool? showDialCode,
     bool? showIsoCode,
     bool? showDropdownIcon,
+    double? flagSpace,
+    double? isoCodeSpace,
+    Widget? dropDownIcon,
   }) {
     return CountryButtonStyle(
       textStyle: textStyle ?? this.textStyle,
@@ -52,6 +64,9 @@ class CountryButtonStyle {
       showDialCode: showDialCode ?? this.showDialCode,
       showIsoCode: showIsoCode ?? this.showIsoCode,
       showDropdownIcon: showDropdownIcon ?? this.showDropdownIcon,
+      flagSpace: flagSpace ?? this.flagSpace,
+      isoCodeSpace: isoCodeSpace ?? this.isoCodeSpace,
+      dropDownIcon: dropDownIcon ?? this.dropDownIcon,
     );
   }
 }
