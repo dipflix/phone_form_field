@@ -2,9 +2,6 @@ import 'package:circle_flags/circle_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_country_selector/flutter_country_selector.dart';
 
-@Deprecated('Use [CountryButton] instead')
-typedef CountryChip = CountryButton;
-
 class CountryButton extends StatelessWidget {
   final Function()? onTap;
   final IsoCode isoCode;
@@ -12,9 +9,15 @@ class CountryButton extends StatelessWidget {
   final EdgeInsets padding;
   final double flagSize;
   final bool showFlag;
+  final double flagSpace;
   final bool showDialCode;
+
   final bool showIsoCode;
+  final double isoCodeSpace;
+
   final bool showDropdownIcon;
+  final Widget? dropDownIcon;
+
   final bool enabled;
 
   const CountryButton({
@@ -29,6 +32,9 @@ class CountryButton extends StatelessWidget {
     this.showIsoCode = false,
     this.showDropdownIcon = true,
     this.enabled = true,
+    this.dropDownIcon,
+    this.isoCodeSpace = 8,
+    this.flagSpace = 8,
   });
 
   @override
@@ -39,6 +45,8 @@ class CountryButton extends StatelessWidget {
     final countryLocalization = CountrySelectorLocalization.of(context) ??
         CountrySelectorLocalizationEn();
     final countryDialCode = '+ ${countryLocalization.countryDialCode(isoCode)}';
+
+    const Icon defaultIcon = Icon(Icons.arrow_drop_down);
 
     return InkWell(
       onTap: onTap,
@@ -54,7 +62,7 @@ class CountryButton extends StatelessWidget {
                   color: enabled ? null : Theme.of(context).disabledColor,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: isoCodeSpace),
             ],
             if (showFlag) ...[
               ExcludeSemantics(
@@ -63,7 +71,7 @@ class CountryButton extends StatelessWidget {
                   size: flagSize,
                 ),
               ),
-              const SizedBox(width: 8),
+              SizedBox(width: flagSpace),
             ],
             if (showDialCode) ...[
               Text(
@@ -74,7 +82,9 @@ class CountryButton extends StatelessWidget {
               ),
             ],
             if (showDropdownIcon)
-              const ExcludeSemantics(child: Icon(Icons.arrow_drop_down)),
+              ExcludeSemantics(
+                child: dropDownIcon ?? defaultIcon,
+              ),
           ],
         ),
       ),
